@@ -10,7 +10,12 @@ import reactor.core.publisher.Mono;
 
 @RestController
 public class StreamingVideoController {
+    @Autowired
+    private StreamingService service;
 
-
-
+    @GetMapping(value = "video/{title}", produces = "video/mp4")
+    public Mono<Resource> getVideos(@PathVariable String title, @RequestHeader("Range") String range) {
+        System.out.println("range in bytes() : " + range);
+        return service.getVideo(title);
+    }
 }
